@@ -3,9 +3,12 @@ package danieltsuzuki.com.github.catalogo.services;
 import danieltsuzuki.com.github.catalogo.dto.CategoryDTO;
 import danieltsuzuki.com.github.catalogo.entities.Category;
 import danieltsuzuki.com.github.catalogo.repositories.CategoryRepository;
+import danieltsuzuki.com.github.catalogo.services.exceptions.DatabaseException;
 import danieltsuzuki.com.github.catalogo.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -46,6 +49,18 @@ public class CategoryService {
             return new CategoryDTO(entity);
         } catch (jakarta.persistence.EntityNotFoundException e) {
             throw new ResourceNotFoundException("ID not found " + id);
+        }
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id) {
+        if(!repository.existsById(id)){
+            throw new ResourceNotFoundException("ID not found " + id);
+        }
+        try {
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Integrity violation");
         }
     }
 }
