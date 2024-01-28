@@ -18,13 +18,24 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
     private String name;
+
+    @Setter
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Setter
     private BigDecimal price;
+
+    @Setter
     private String imgUrl;
+
+    @Setter
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
+
     @ManyToMany
     @JoinTable(
             name = "product_category",
