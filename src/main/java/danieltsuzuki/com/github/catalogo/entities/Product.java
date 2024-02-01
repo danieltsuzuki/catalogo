@@ -13,6 +13,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Table(name = "tb_product")
 public class Product implements Serializable {
 
     @Id
@@ -39,10 +40,9 @@ public class Product implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            name = "product_category",
+            name = "tb_product_category",
             joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     public Product(Long id, String name, String description, BigDecimal price, String imgUrl, Instant date) {
