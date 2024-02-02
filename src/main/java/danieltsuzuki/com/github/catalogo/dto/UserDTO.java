@@ -1,6 +1,8 @@
 package danieltsuzuki.com.github.catalogo.dto;
 
 import danieltsuzuki.com.github.catalogo.entities.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +20,12 @@ public class UserDTO implements Serializable {
 
     private Long id;
 
+    @NotBlank(message = "Required")
     private String firstName;
 
     private String lastName;
 
+    @Email(message = "Insert valid email")
     private String email;
 
     Set<RoleDTO> roles = new HashSet<>();
