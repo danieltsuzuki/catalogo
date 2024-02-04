@@ -3,6 +3,7 @@ package danieltsuzuki.com.github.catalogo.services;
 import danieltsuzuki.com.github.catalogo.dto.RoleDTO;
 import danieltsuzuki.com.github.catalogo.dto.UserDTO;
 import danieltsuzuki.com.github.catalogo.dto.UserInsertDTO;
+import danieltsuzuki.com.github.catalogo.dto.UserUpdateDTO;
 import danieltsuzuki.com.github.catalogo.entities.Role;
 import danieltsuzuki.com.github.catalogo.entities.User;
 import danieltsuzuki.com.github.catalogo.repositories.RoleRepository;
@@ -55,7 +56,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) {
+    public UserDTO update(Long id, UserUpdateDTO dto) {
         try{
             User entity = repository.getReferenceById(id);
             copyDtoToEntity(dto, entity);

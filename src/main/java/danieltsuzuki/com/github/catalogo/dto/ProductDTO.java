@@ -2,10 +2,7 @@ package danieltsuzuki.com.github.catalogo.dto;
 
 import danieltsuzuki.com.github.catalogo.entities.Category;
 import danieltsuzuki.com.github.catalogo.entities.Product;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,6 +36,7 @@ public class ProductDTO implements Serializable {
     @PastOrPresent(message = "Product date cannot be in the future")
     private Instant date;
 
+    @NotEmpty(message = "Uncategorized product is not allowed")
     private List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO(Long id, String name, String description, BigDecimal price, String imgUrl, Instant date) {
